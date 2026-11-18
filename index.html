@@ -393,7 +393,7 @@ const FLOORS = {
   ep:{label:"Entrepiso", to:"el entrepiso", key:"E", level:1, w:2400, h:851, home:[1150,430], note:"CNC, Renovables, Producción y más",
       entries:[{x:969,y:452,rot:90}],
       voids:[{x:1830,y:580,t:"VACÍO SOBRE EL TALLER"},{x:1030,y:330,t:"VACÍO SOBRE GALERÍA"}]},
-  p1:{label:"1.er piso", to:"el 1.er piso", key:"1", level:2, w:2400, h:886, home:[1150,400], note:"Taller Base, Laboratorio y PLC",
+  p1:{label:"1.er piso", to:"el 1.er piso", key:"1", level:2, w:2400, h:886, home:[1150,400], note:"PLC, Laboratorio y Taller Base",
       entries:[], voids:[{x:760,y:800,t:"AZOTEA NO TRANSITABLE"}]}
 };
 const ORDER = ["pb","ep","p1"];
@@ -469,20 +469,20 @@ const ZONES = [
    desc:"Depósito del entrepiso, junto al hall.", links:["ep-hall"]},
 
   // 1.er piso
-  {id:"p1-electronica", f:"p1", name:"Taller Base", alt:"Taller de Electrónica", kind:"expo", lp:[400,215],
-   who:["1.º y 2.º año"], years:[1,2], docentes:["Moyano"],
+  {id:"p1-electronica", f:"p1", name:"PLC", kind:"expo", lp:[400,215],
+   who:["6.º A y B: Proyecto y PP","4.º A y B: Neumática","5.º A y B: Electroneumática"], years:[4,5,6], docentes:["Marchioli","Corral","D Andraia"],
    desc:"El taller más grande del piso. Pasa al Laboratorio por la puerta doble.", links:["p1-laboratorio","p1-master","p1-oficina"]},
   {id:"p1-master", f:"p1", name:"Master", kind:"aula", lp:[411,549],
-   desc:"Sala dentro del Taller Base.", links:["p1-electronica","p1-oficina"]},
+   desc:"Sala dentro del aula de PLC.", links:["p1-electronica","p1-oficina"]},
   {id:"p1-electricidad", f:"p1", name:"Box de Instalaciones", short:"Instalaciones", alt:"Taller de Electricidad", kind:"expo", lp:[1011,170],
    who:[], years:[], docentes:["Roche"],
    desc:"Abierto al Laboratorio por una fila de boxes de trabajo.", links:["p1-laboratorio","p1-automatizacion"]},
-  {id:"p1-automatizacion", f:"p1", name:"PLC", alt:"Taller de Automatización", kind:"expo", lp:[1430,170],
-   who:["6.º A y B: Proyecto y PP","4.º A y B: Neumática","5.º A y B: Electroneumática"], years:[4,5,6], docentes:["Marchioli","Corral","D Andraia"],
+  {id:"p1-automatizacion", f:"p1", name:"Taller Base", kind:"expo", lp:[1430,170],
+   who:["1.º y 2.º año"], years:[1,2], docentes:["Moyano"],
    desc:"Al lado del Box de Instalaciones. Se entra desde el Laboratorio.", links:["p1-laboratorio","p1-electricidad"]},
   {id:"p1-laboratorio", f:"p1", name:"Laboratorio de Mediciones", short:"Lab. Mediciones", kind:"expo", lp:[1150,520],
    who:["Proyecto de 4.º Electrónica y PPI","Proyecto de 5.º año"], years:[4,5], docentes:["Alikasie","Pantozzi","Ceballos"],
-   desc:"Espacio central del piso. Conecta el hall con el Taller Base, el Box de Instalaciones y PLC.", links:["p1-hall","p1-electronica","p1-electricidad","p1-automatizacion"]},
+   desc:"Espacio central del piso. Conecta el hall con PLC, el Box de Instalaciones y el Taller Base.", links:["p1-hall","p1-electronica","p1-electricidad","p1-automatizacion"]},
   {id:"p1-aula-maquinas", f:"p1", name:"Aula Máquinas", kind:"aula", lp:[2090,520],
    desc:"Del otro lado del hall, sobre el aula de Proyecto del entrepiso.", links:["p1-hall"]},
   {id:"p1-hall", f:"p1", name:"Hall del 1.er piso", short:"Hall", kind:"circ", lp:[1745,315],
