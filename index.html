@@ -383,15 +383,15 @@ h3{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em
 </div>
 
 <script>
-const POLY = {"fresadoras": [[755, 515], [1295, 515], [1295, 1232], [705, 1212], [738, 660]], "torneria": [[1295, 515], [2023, 515], [2023, 1270], [1295, 1232]], "soldadura": [[2023, 515], [2195, 515], [2225, 1282], [2023, 1270]], "aula-taller": [[1295, 110], [2126, 110], [2126, 370], [1295, 370]], "escalera-hall": [[1000, 110], [1285, 110], [1285, 370], [1000, 370]], "hall": [[770, 302], [998, 302], [998, 376], [1285, 376], [1285, 505], [757, 505]], "pasillo": [[1285, 376], [1793, 376], [1793, 448], [2123, 448], [2193, 360], [2195, 505], [1285, 505]], "escalera-recta": [[1795, 380], [2118, 380], [2118, 445], [1795, 445]], "ascensor": [[781, 98], [898, 98], [898, 266], [781, 266]], "banos": [[510, 488], [738, 488], [738, 645], [510, 645]], "panol": [[445, 670], [725, 670], [711, 1005], [445, 1005]], "deposito": [[445, 1005], [711, 1005], [703, 1105], [445, 1105]], "escalera-4": [[85, 655], [165, 655], [165, 905], [85, 905]], "patio": [[75, 325], [505, 325], [505, 480], [505, 640], [75, 640]], "ep-escalera-3": [[48, 474], [192, 474], [192, 696], [48, 696]], "ep-pasillo": [[192, 420], [882, 420], [882, 486], [192, 486]], "ep-produccion": [[198, 492], [576, 492], [576, 702], [198, 702]], "ep-dibujo": [[582, 492], [874, 492], [874, 702], [582, 702]], "ep-escaleras": [[882, 480], [1056, 480], [1056, 690], [882, 690]], "ep-hall": [[1158, 198], [1422, 198], [1428, 180], [1560, 180], [1560, 318], [1404, 318], [1404, 306], [1254, 306], [1254, 408], [1206, 414], [1206, 708], [1116, 708], [1116, 504], [1158, 504]], "ep-deposito": [[1254, 306], [1404, 306], [1404, 408], [1254, 408]], "ep-aula": [[1212, 414], [1404, 408], [1374, 828], [1212, 828]], "ep-renovables": [[1158, 24], [1434, 24], [1416, 192], [1158, 192]], "ep-ascensor": [[1434, 60], [1500, 60], [1500, 162], [1434, 162]], "ep-escalera-hall": [[1560, 66], [1758, 66], [1758, 234], [1560, 234]], "ep-cnc": [[1762, 60], [2286, 60], [2286, 234], [1762, 234]], "ep-pasarela": [[1560, 234], [2312, 234], [2312, 318], [1560, 318]], "p1-electronica": [[14, 34], [782, 34], [782, 494], [624, 494], [624, 396], [198, 396], [198, 702], [14, 702]], "p1-master": [[198, 396], [624, 396], [624, 702], [198, 702]], "p1-oficina": [[624, 498], [782, 498], [782, 702], [624, 702]], "p1-electricidad": [[786, 34], [1236, 34], [1236, 334], [786, 334]], "p1-automatizacion": [[1236, 34], [1634, 34], [1634, 334], [1236, 334]], "p1-laboratorio": [[786, 336], [1634, 336], [1634, 418], [1522, 418], [1522, 702], [786, 702]], "p1-sala": [[1652, 34], [1918, 34], [1906, 226], [1652, 226]], "p1-hall": [[1652, 234], [1906, 234], [1906, 300], [1854, 348], [1854, 382], [1794, 382], [1794, 426], [1652, 426]], "p1-escaleras": [[1652, 426], [1794, 426], [1794, 382], [1854, 382], [1854, 564], [1794, 564], [1794, 702], [1652, 702]], "p1-aula-maquinas": [[1878, 326], [2340, 326], [2286, 702], [1878, 702]], "ep-tableros": [[1058, 486], [1112, 486], [1112, 650], [1058, 650]]};
+const POLY = {"fresadoras": [[755, 515], [1295, 515], [1295, 1232], [705, 1212], [738, 660]], "torneria": [[1295, 515], [2023, 515], [2023, 1270], [1295, 1232]], "soldadura": [[2023, 515], [2195, 515], [2225, 1282], [2023, 1270]], "aula-taller": [[1295, 110], [2126, 110], [2126, 370], [1295, 370]], "escalera-hall": [[1000, 110], [1285, 110], [1285, 370], [1000, 370]], "hall": [[770, 302], [998, 302], [998, 376], [1285, 376], [1285, 505], [757, 505]], "pasillo": [[1285, 376], [1793, 376], [1793, 448], [2123, 448], [2193, 360], [2195, 505], [1285, 505]], "escalera-recta": [[1795, 380], [2118, 380], [2118, 445], [1795, 445]], "ascensor": [[781, 98], [898, 98], [898, 266], [781, 266]], "banos": [[510, 488], [738, 488], [738, 645], [510, 645]], "panol": [[445, 670], [725, 670], [711, 1005], [445, 1005]], "deposito": [[445, 1005], [711, 1005], [703, 1105], [445, 1105]], "escalera-4": [[85, 655], [165, 655], [165, 905], [85, 905]], "patio": [[75, 325], [505, 325], [505, 480], [505, 640], [75, 640]], "ep-escalera-3": [[48, 474], [192, 474], [192, 696], [48, 696]], "ep-pasillo": [[192, 420], [1158, 420], [1158, 486], [192, 486]], "ep-produccion": [[198, 492], [576, 492], [576, 702], [198, 702]], "ep-dibujo": [[582, 492], [874, 492], [874, 702], [582, 702]], "ep-escaleras": [[980, 486], [1056, 486], [1056, 690], [885, 690], [885, 584], [980, 584]], "ep-hall": [[1158, 198], [1422, 198], [1428, 180], [1560, 180], [1560, 318], [1404, 318], [1404, 306], [1254, 306], [1254, 408], [1206, 414], [1206, 486], [1158, 486]], "ep-deposito": [[1254, 306], [1404, 306], [1404, 408], [1254, 408]], "ep-aula": [[1212, 414], [1404, 408], [1374, 828], [1212, 828]], "ep-renovables": [[1158, 24], [1434, 24], [1416, 192], [1158, 192]], "ep-ascensor": [[1434, 60], [1500, 60], [1500, 162], [1434, 162]], "ep-escalera-hall": [[1560, 66], [1758, 66], [1758, 234], [1560, 234]], "ep-cnc": [[1762, 60], [2286, 60], [2286, 234], [1762, 234]], "ep-pasarela": [[1560, 234], [2312, 234], [2312, 318], [1560, 318]], "p1-electronica": [[14, 34], [782, 34], [782, 494], [624, 494], [624, 396], [198, 396], [198, 702], [14, 702]], "p1-master": [[198, 396], [624, 396], [624, 702], [198, 702]], "p1-oficina": [[624, 498], [782, 498], [782, 702], [624, 702]], "p1-electricidad": [[786, 34], [1236, 34], [1236, 334], [786, 334]], "p1-automatizacion": [[1236, 34], [1634, 34], [1634, 334], [1236, 334]], "p1-laboratorio": [[786, 336], [1634, 336], [1634, 418], [1522, 418], [1522, 702], [786, 702]], "p1-sala": [[1652, 34], [1918, 34], [1906, 226], [1652, 226]], "p1-hall": [[1652, 234], [1906, 234], [1906, 300], [1854, 348], [1854, 382], [1794, 382], [1794, 426], [1652, 426]], "p1-escaleras": [[1652, 426], [1794, 426], [1794, 382], [1854, 382], [1854, 564], [1794, 564], [1794, 702], [1652, 702]], "p1-aula-maquinas": [[1878, 326], [2340, 326], [2286, 702], [1878, 702]], "ep-tableros": [[1058, 486], [1112, 486], [1112, 650], [1058, 650]], "ep-deposito-escalera": [[885, 486], [978, 486], [978, 582], [885, 582]], "ep-pasillo-proyecto": [[1112, 486], [1206, 486], [1206, 708], [1056, 708], [1056, 652], [1112, 652]]};
 // Cuando haya fotos 360°, cada punto lleva en img la ruta del archivo (proporción 2:1, equirectangular).
-const PANOS = [{"id": "v-hall", "f": "pb", "x": 1180, "y": 430, "zone": "hall", "name": "Hall del taller", "hint": "Entrada al taller", "img": null}, {"id": "v-nave", "f": "pb", "x": 1450, "y": 1080, "zone": "torneria", "name": "La nave del taller", "hint": "Fresadoras, tornería y soldadura", "img": null}, {"id": "v-patio", "f": "pb", "x": 290, "y": 545, "zone": "patio", "name": "Patio de bebederos", "hint": "Entre la galería y el taller", "img": null}, {"id": "v-pasarela", "f": "ep", "x": 2200, "y": 276, "zone": "ep-pasarela", "name": "Pasarela", "hint": "Mirador sobre la nave", "img": null}, {"id": "v-ep-esc", "f": "ep", "x": 969, "y": 650, "zone": "ep-escaleras", "name": "Escaleras junto a Dibujo", "hint": "Entrada al entrepiso", "img": null}, {"id": "v-ep-hall", "f": "ep", "x": 1190, "y": 262, "zone": "ep-hall", "name": "Hall del entrepiso", "hint": "Renovables, CNC y Proyecto", "img": null}, {"id": "v-p1-hall", "f": "p1", "x": 1700, "y": 392, "zone": "p1-hall", "name": "Hall del 1.er piso", "hint": "Llegada de las escaleras", "img": null}, {"id": "v-lab", "f": "p1", "x": 900, "y": 620, "zone": "p1-laboratorio", "name": "Laboratorio de Mediciones", "hint": "Centro del 1.er piso", "img": null}];
+const PANOS = [{"id": "v-hall", "f": "pb", "x": 1180, "y": 430, "zone": "hall", "name": "Hall del taller", "hint": "Entrada al taller", "img": null}, {"id": "v-nave", "f": "pb", "x": 1450, "y": 1080, "zone": "torneria", "name": "La nave del taller", "hint": "Fresadoras, tornería y soldadura", "img": null}, {"id": "v-patio", "f": "pb", "x": 290, "y": 545, "zone": "patio", "name": "Patio de bebederos", "hint": "Entre la galería y el taller", "img": null}, {"id": "v-pasarela", "f": "ep", "x": 2200, "y": 276, "zone": "ep-pasarela", "name": "Pasarela", "hint": "Mirador sobre la nave", "img": null}, {"id": "v-ep-esc", "f": "ep", "x": 1170, "y": 560, "zone": "ep-pasillo-proyecto", "name": "Escalones del pasillo de Proyecto", "hint": "Llegada desde la Escalera N.º 4", "img": null}, {"id": "v-ep-hall", "f": "ep", "x": 1190, "y": 262, "zone": "ep-hall", "name": "Hall del entrepiso", "hint": "Renovables, CNC y Proyecto", "img": null}, {"id": "v-p1-hall", "f": "p1", "x": 1700, "y": 392, "zone": "p1-hall", "name": "Hall del 1.er piso", "hint": "Llegada de las escaleras", "img": null}, {"id": "v-lab", "f": "p1", "x": 900, "y": 620, "zone": "p1-laboratorio", "name": "Laboratorio de Mediciones", "hint": "Centro del 1.er piso", "img": null}];
 
 const FLOORS = {
   pb:{label:"Planta baja", to:"la planta baja", key:"PB", level:0, w:2250, h:1420, home:[1350,720], note:"Fresadoras, tornería y soldadura",
       entries:[{x:575,y:412,rot:0},{x:125,y:612,rot:90}], voids:[]},
   ep:{label:"Entrepiso", to:"el entrepiso", key:"E", level:1, w:2400, h:851, home:[1150,430], note:"CNC, Renovables, Producción y más",
-      entries:[{x:969,y:452,rot:90}],
+      entries:[{x:1080,y:678,rot:0}],
       voids:[{x:1830,y:580,t:"VACÍO SOBRE EL TALLER"},{x:1030,y:330,t:"VACÍO SOBRE GALERÍA"}]},
   p1:{label:"1.er piso", to:"el 1.er piso", key:"1", level:2, w:2400, h:886, home:[1150,400], note:"PLC, Laboratorio y Taller Base",
       entries:[], voids:[{x:760,y:800,t:"AZOTEA NO TRANSITABLE"}]}
@@ -423,7 +423,7 @@ const ZONES = [
   {id:"escalera-recta", f:"pb", name:"Escalera a la pasarela", short:"Escalera", kind:"circ", icon:"stairs", lp:[1956,412],
    desc:"Escalera recta frente al Aula Taller. Sube a la pasarela del entrepiso, que da sobre la nave.", links:["pasillo","aula-taller","soldadura","ep-pasarela"]},
   {id:"escalera-4", f:"pb", name:"Escalera N.º 4", short:"Esc. 4", kind:"circ", icon:"stairs", lp:[125,790], entry:true,
-   desc:"Entrada por la puerta reja del patio. Sube a las escaleras junto a Dibujo Técnico, en el entrepiso, y sigue al 1.er piso.", links:["patio","ep-escaleras"]},
+   desc:"Entrada por la puerta reja del patio. Sube al entrepiso, donde sale al pasillo de Proyecto, y sigue al 1.er piso.", links:["patio","ep-escaleras"]},
   {id:"patio", f:"pb", name:"Patio de bebederos", short:"Patio", kind:"circ", lp:[290,430],
    desc:"Une la galería del colegio con el taller. De acá salen la entrada al hall y la Escalera N.º 4.", links:["hall","escalera-4","banos"]},
   {id:"ascensor", f:"pb", name:"Ascensor", kind:"serv", icon:"lift", lp:[840,182],
@@ -441,18 +441,22 @@ const ZONES = [
    desc:"El aula más grande del entrepiso. Se entra desde el pasillo.", links:["ep-pasillo","ep-dibujo"]},
   {id:"ep-dibujo", f:"ep", name:"Dibujo Técnico", short:"Dibujo", kind:"expo", lp:[728,597], dims:"7,69 m × 5,52 m",
    who:["Dibujo de 2.º y 3.º año","Física de 2.º año"], years:[2,3], docentes:["Tizziana","Mansilla"],
-   desc:"Al lado de Producción. Se entra desde el pasillo.", links:["ep-pasillo","ep-produccion","ep-escaleras"]},
+   desc:"Al lado de Producción. Se entra desde el pasillo.", links:["ep-pasillo","ep-produccion"]},
   {id:"ep-pasillo", f:"ep", name:"Pasillo de Producción", short:"Pasillo", kind:"circ", lp:[540,453],
-   desc:"Corre por delante de Producción y Dibujo Técnico. Sus ventanas dan al patio de planta baja.", links:["ep-escalera-3","ep-produccion","ep-dibujo","ep-escaleras"]},
+   desc:"Pasillo con rampa y barandas que corre por delante de Producción y Dibujo Técnico. Sus ventanas dan al patio de planta baja. Al final sigue hacia el pasillo de Proyecto y el hall del entrepiso. La puerta oscura de la derecha es un depósito, no la escalera.", links:["ep-escalera-3","ep-produccion","ep-dibujo","ep-deposito-escalera","ep-pasillo-proyecto","ep-hall"]},
   {id:"ep-escalera-3", f:"ep", name:"Escalera N.º 3", short:"Esc. 3", kind:"circ", icon:"stairs", lp:[120,585],
    desc:"En la punta del pasillo de Producción. Baja a la galería del colegio.", links:["ep-pasillo"]},
-  {id:"ep-escaleras", f:"ep", name:"Escaleras junto a Dibujo", short:"Escaleras", kind:"circ", icon:"stairs", lp:[969,585], entry:true,
-   desc:"Dos escaleras al lado de Dibujo Técnico. Bajan al patio de planta baja (Escalera N.º 4) y suben al hall del 1.er piso.", links:["ep-pasillo","ep-dibujo","ep-hall","escalera-4","p1-escaleras"]},
+  {id:"ep-escaleras", f:"ep", name:"Escalera N.º 4 (entrepiso)", short:"Esc. 4", kind:"circ", icon:"stairs", lp:[1018,628], entry:true,
+   desc:"Llega desde el patio de planta baja y sigue al 1.er piso. En el entrepiso se sale por la puerta de abajo, que da a unos escalones y al pasillo de Proyecto.", links:["ep-pasillo-proyecto","escalera-4","p1-escaleras"]},
+  {id:"ep-deposito-escalera", f:"ep", name:"Depósito bajo la escalera", short:"Depósito", kind:"serv", lp:[931,534],
+   desc:"La puerta oscura al final del pasillo de Producción, junto a la manguera de incendio. Es un depósito debajo de la escalera: no comunica con los pisos.", links:["ep-pasillo"]},
+  {id:"ep-pasillo-proyecto", f:"ep", name:"Pasillo de Proyecto", short:"Pasillo", kind:"circ", lp:[1160,590],
+   desc:"Pasillo junto al aula de Proyecto. Al fondo, unos escalones bajan hasta la puerta de la Escalera N.º 4, que lleva a planta baja y al 1.er piso.", links:["ep-hall","ep-aula","ep-tableros","ep-escaleras"]},
   {id:"ep-hall", f:"ep", name:"Hall del entrepiso", short:"Hall", kind:"circ", lp:[1310,250],
-   desc:"Distribuidor del entrepiso. Une Proyecto, Renovables, el ascensor, la escalera del hall y la pasarela sobre la nave.", links:["ep-escaleras","ep-aula","ep-renovables","ep-ascensor","ep-escalera-hall","ep-pasarela","ep-deposito","ep-tableros"]},
+   desc:"Distribuidor del entrepiso. Une Proyecto, Renovables, el ascensor, la escalera del hall y la pasarela sobre la nave.", links:["ep-pasillo","ep-pasillo-proyecto","ep-renovables","ep-ascensor","ep-escalera-hall","ep-pasarela","ep-deposito"]},
   {id:"ep-aula", f:"ep", name:"Proyecto", kind:"expo", lp:[1300,620], dims:"10,49 m × 4,14 m",
    who:["3.º año: Control y Proyecto"], years:[3], docentes:["Teglia","Guarita"],
-   desc:"Aula sobre la pared inclinada del edificio, junto al hall del entrepiso.", links:["ep-hall"]},
+   desc:"Aula sobre la pared inclinada del edificio. Se entra por el pasillo de Proyecto, el que baja hacia la Escalera N.º 4.", links:["ep-pasillo-proyecto"]},
   {id:"ep-renovables", f:"ep", name:"Renovables", kind:"expo", lp:[1290,108], dims:"7,08 m × 4,00 m",
    who:["6.º Mecánica"], years:[6], docentes:["De Vita"],
    desc:"Aula de energías renovables, al fondo del hall junto al ascensor.", links:["ep-hall","ep-ascensor"]},
@@ -466,7 +470,7 @@ const ZONES = [
   {id:"ep-pasarela", f:"ep", name:"Rampa y pasarela", short:"Pasarela", kind:"circ", lp:[1830,288],
    desc:"Rampa suave desde el hall y pasarela con baranda sobre la nave: desde acá se ve todo el taller. Al fondo baja la escalera recta a planta baja.", links:["ep-hall","ep-cnc","escalera-recta"]},
   {id:"ep-tableros", f:"ep", name:"Depósito (sala de tableros)", short:"Depósito", kind:"serv", lp:[1085,568],
-   desc:"Recinto chico entre las escaleras junto a Dibujo y el hall del entrepiso, con el tablero eléctrico principal. No se visita.", links:["ep-hall","ep-escaleras"]},
+   desc:"Recinto chico entre la Escalera N.º 4 y el pasillo de Proyecto, con el tablero eléctrico principal. No se visita.", links:["ep-pasillo-proyecto"]},
   {id:"ep-deposito", f:"ep", name:"Depósito (entrepiso)", short:"Depósito", kind:"serv", lp:[1329,357],
    desc:"Depósito del entrepiso, junto al hall.", links:["ep-hall"]},
 
@@ -490,7 +494,7 @@ const ZONES = [
   {id:"p1-hall", f:"p1", name:"Hall del 1.er piso", short:"Hall", kind:"circ", lp:[1745,315],
    desc:"Llegada de las escaleras. Desde acá se pasa al Laboratorio de Mediciones, a la Sala y al Aula Máquinas.", links:["p1-escaleras","p1-laboratorio","p1-sala","p1-aula-maquinas"]},
   {id:"p1-escaleras", f:"p1", name:"Escaleras (1.er piso)", short:"Escaleras", kind:"circ", icon:"stairs", lp:[1723,600],
-   desc:"Escalera N.º 4 y una segunda escalera. Bajan a las escaleras junto a Dibujo Técnico, en el entrepiso.", links:["p1-hall","ep-escaleras"]},
+   desc:"Escalera N.º 4. Baja al entrepiso (salida al pasillo de Proyecto) y sigue hasta el patio de planta baja.", links:["p1-hall","ep-escaleras"]},
   {id:"p1-sala", f:"p1", name:"Sala", kind:"serv", lp:[1785,130],
    desc:"Sala junto al hall.", links:["p1-hall"]},
   {id:"p1-oficina", f:"p1", name:"Oficina", kind:"serv", lp:[703,600],
@@ -922,13 +926,23 @@ function computeRoute() {
   }
   drawRoute(); drawMarks(); highlight(); updateFloorDots(); layout();
 }
+// Puntos de paso entre espacios vecinos: puerta conocida o centro del borde que comparten.
+const DOORS = {"ep-pasillo-proyecto|ep-escaleras":[1060,672]};
+function doorPt(a, b) {
+  const d = DOORS[a.id + "|" + b.id] || DOORS[b.id + "|" + a.id]; if (d) return d;
+  const e = 12, x0 = Math.max(a.bb.x0, b.bb.x0) - e, x1 = Math.min(a.bb.x1, b.bb.x1) + e, y0 = Math.max(a.bb.y0, b.bb.y0) - e, y1 = Math.min(a.bb.y1, b.bb.y1) + e;
+  return x0 <= x1 && y0 <= y1 ? [(x0 + x1) / 2, (y0 + y1) / 2] : null;
+}
 function drawRoute() {
   gRoute.replaceChildren();
   if (!S.path) return;
   const pts = [], path = S.path;
   for (let i = 0; i < path.length; i++) {
     const z = byId[path[i]]; if (z.f !== S.floor) continue;
-    pts.push(z.lp);
+    const pv = byId[path[i - 1]], nz = byId[path[i + 1]];
+    if (!pv || pv.f !== z.f) pts.push(z.lp);
+    if (nz && nz.f === z.f) { const dp = doorPt(z, nz); if (dp) pts.push(dp); }
+    else if (pts[pts.length - 1] !== z.lp) pts.push(z.lp);
     const nx = byId[path[i + 1]];
     if (nx && nx.f !== z.f) {
       const up = FLOORS[nx.f].level > FLOORS[z.f].level, label = `${up ? "↑" : "↓"} ${FLOORS[nx.f].label}`, w = label.length * 7.4 + 18;
