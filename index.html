@@ -145,6 +145,7 @@ h3{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em
 .who li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;font-size:16px;line-height:1.35}
 .who li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--expo);margin-top:8px}
 .who b{font-weight:700}
+.who.proj small{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
 .years{display:flex;flex-wrap:wrap;gap:6px}
 .yr{font-family:var(--f-mono);font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid color-mix(in srgb,var(--expo) 50%,var(--line));color:var(--ink)}
 .doc{font-size:14px;color:var(--muted)}
@@ -306,7 +307,7 @@ h3{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em
     <div style="min-width:0">
     <div class="eyebrow">Colegio León XIII<span class="long"> · Recorrido del taller</span></div>
     <h1>ExpoLeón 2026</h1>
-    <p class="lede">Encontrá qué expone cada curso en el taller y el Laboratorio de Química y mirá cómo llegar desde donde estás.</p>
+    <p class="lede">Encontrá qué expone cada curso en el taller, la galería, el piso María Auxiliadora y los laboratorios del 2.º piso, y mirá cómo llegar desde donde estás.</p>
     </div>
   </div>
   <div class="quick" aria-label="Accesos rápidos">
@@ -408,9 +409,9 @@ const FLOORS = {
   ep:{label:"Entrepiso", to:"el entrepiso", key:"E", level:1, w:2400, h:851, home:[1150,430], note:"CNC, Renovables, Producción y más",
       entries:[{x:1080,y:678,rot:0}],
       voids:[{x:1830,y:580,t:"VACÍO SOBRE EL TALLER"},{x:1030,y:330,t:"VACÍO SOBRE GALERÍA"}]},
-  p1:{label:"1.er piso", to:"el 1.er piso", key:"1", level:2, w:2897, h:2512, home:[1912,2127], note:"PLC, Laboratorio, Taller Base y patio de María Auxiliadora",
+  p1:{label:"1.er piso", to:"el 1.er piso", key:"1", level:2, w:2897, h:2512, home:[1912,2127], note:"Taller (PLC, Mediciones, Base) y piso María Auxiliadora",
       entries:[], voids:[{x:1300,y:1000,t:"VACÍO SOBRE PATIO CENTRAL"},{x:1604,y:2443,t:"AZOTEA NO TRANSITABLE"}]},
-  p2:{label:"2.º piso", to:"el 2.º piso", key:"2", level:3, w:1121, h:1307, home:[560,680], note:"Laboratorio de Química · sector Dorrego",
+  p2:{label:"2.º piso", to:"el 2.º piso", key:"2", level:3, w:1121, h:1307, home:[560,680], note:"Laboratorios de Química y Alimentos · Dorrego",
       entries:[], voids:[]}
 };
 const ORDER = ["pb","ep","p1","p2"];
@@ -421,13 +422,13 @@ const ORDER = ["pb","ep","p1","p2"];
 const ZONES = [
   // Planta baja
   {id:"fresadoras", f:"pb", name:"Fresadoras", kind:"expo", lp:[2521,492],
-   who:["2.º año","3.º A y B"], years:[2,3], docentes:["Raimondo"],
+   who:["2.º año","3.º A y B"], years:[2,3], docentes:["Raimondo"], proj:[{t:"Muestra de trabajos y actividad en vivo"}],
    desc:"Primer sector de la nave entrando desde el hall, con las fresadoras y las máquinas herramienta.", links:["hall","torneria","deposito"]},
   {id:"torneria", f:"pb", name:"Tornería", kind:"expo", lp:[2917,497],
-   who:["2.º año","3.º A y B","4.º A"], years:[2,3,4], docentes:["Laino"],
+   who:["2.º año","3.º A y B","4.º A"], years:[2,3,4], docentes:["Laino"], proj:[{t:"Muestra de trabajos y actividad en vivo"}],
    desc:"El centro de la nave: tornos en tres filas, con mesas de trabajo a los costados.", links:["fresadoras","soldadura","pasillo"]},
   {id:"soldadura", f:"pb", name:"Soldadura", kind:"expo", lp:[3180,510],
-   who:["2.º año","3.º A y B"], years:[2,3], docentes:["Albreth"],
+   who:["2.º año","3.º A y B"], years:[2,3], docentes:["Albreth"], proj:[{t:"Muestra de trabajos y actividad en vivo"}],
    desc:"Al fondo de la nave, contra la pared: cinco boxes de soldadura.", links:["torneria","pasillo","escalera-recta"]},
   {id:"aula-taller", f:"pb", name:"Aula Taller", kind:"aula", lp:[2935,118], dims:"14,02 m × 4,50 m",
    desc:"Aula al costado de la nave. Se entra por la puerta que da al pasillo del taller.", links:["pasillo","escalera-recta"]},
@@ -443,7 +444,9 @@ const ZONES = [
    desc:"Entrada por la puerta reja del patio. Sube al entrepiso, donde sale al pasillo de Proyecto, y sigue al 1.er piso.", links:["patio","ep-escaleras"]},
   {id:"patio", f:"pb", name:"Patio de bebederos", short:"Patio", kind:"circ", lp:[2095,231],
    desc:"Une la galería del colegio con el taller. De acá salen la entrada al hall y la Escalera N.º 4.", links:["hall","escalera-4","banos","galeria"]},
-  {id:"galeria", f:"pb", name:"Galería", kind:"circ", lp:[1307,264],
+  {id:"galeria", f:"pb", name:"Galería", kind:"expo", lp:[1307,264],
+   who:["5.º BAECO-BAGRA","Todos los años: Proyectos de Año"], years:[1,2,3,4,5,6], docentes:["Rivarola","Díaz","Equipos de Curso"],
+   proj:[{t:"Sabores Salesianos",c:"5.º",d:"Rivarola y Díaz",a:"BAECO-BAGRA"},{t:"Proyectos de Año",c:"Todos los años",d:"Equipos de Curso"}],
    desc:"Galería del colegio con ventanales al patio central. Une el acceso de Av. Dorrego y la Escalera N.º 1 con el patio de bebederos, la Escalera N.º 4 y el taller.", links:["acceso-dorrego","acceso-lateral","patio"]},
   {id:"acceso-dorrego", f:"pb", name:"Acceso principal (Av. Dorrego)", short:"Acceso", kind:"circ", lp:[1295,513], entry:true,
    desc:"Entrada principal del colegio por Av. Dorrego. Desde el hall de acceso se pasa a la galería y de ahí al taller.", links:["galeria"]},
@@ -464,8 +467,8 @@ const ZONES = [
   {id:"ep-produccion", f:"ep", name:"Producción", kind:"expo", lp:[387,597], dims:"10,00 m × 8,46 m",
    who:["Producción de 1.º año","Proyecto de 1.º y 2.º año"], years:[1,2], docentes:["Ciapessoni","Solís"],
    desc:"El aula más grande del entrepiso. Se entra desde el pasillo.", links:["ep-pasillo","ep-dibujo"]},
-  {id:"ep-dibujo", f:"ep", name:"Dibujo Técnico", short:"Dibujo", kind:"expo", lp:[728,597], dims:"7,69 m × 5,52 m",
-   who:["Dibujo de 2.º y 3.º año","Física de 2.º año"], years:[2,3], docentes:["Tizziana","Mansilla"],
+  {id:"ep-dibujo", f:"ep", name:"Tecnología de la Representación", short:"Dibujo", alt:"Dibujo Técnico", kind:"expo", lp:[728,597], dims:"7,69 m × 5,52 m",
+   who:["Dibujo de 2.º y 3.º año","Física de 2.º año"], years:[2,3], docentes:["Pierdominici","Mansilla"],
    desc:"Al lado de Producción. Se entra desde el pasillo.", links:["ep-pasillo","ep-produccion"]},
   {id:"ep-pasillo", f:"ep", name:"Pasillo de Producción", short:"Pasillo", kind:"circ", lp:[540,453],
    desc:"Pasillo con rampa y barandas que corre por delante de Producción y Dibujo Técnico. Sus ventanas dan al patio de planta baja. Al final sigue hacia el pasillo de Proyecto y el hall del entrepiso. La puerta oscura de la derecha es un depósito, no la escalera.", links:["ep-escalera-3","ep-produccion","ep-dibujo","ep-deposito-escalera","ep-pasillo-proyecto","ep-hall"]},
@@ -480,17 +483,17 @@ const ZONES = [
   {id:"ep-hall", f:"ep", name:"Hall del entrepiso", short:"Hall", kind:"circ", lp:[1310,250],
    desc:"Distribuidor del entrepiso. Une Proyecto, Renovables, el ascensor, la escalera del hall y la pasarela sobre la nave.", links:["ep-pasillo","ep-pasillo-proyecto","ep-renovables","ep-ascensor","ep-escalera-hall","ep-pasarela","ep-deposito"]},
   {id:"ep-aula", f:"ep", name:"Proyecto", kind:"expo", lp:[1300,620], dims:"10,49 m × 4,14 m",
-   who:["3.º año: Control y Proyecto"], years:[3], docentes:["Teglia","Guarita"],
+   who:["3.º año: Control y Proyecto"], years:[3], docentes:["De Vita"],
    desc:"Aula sobre la pared inclinada del edificio. Se entra por el pasillo de Proyecto, el que baja hacia la Escalera N.º 4.", links:["ep-pasillo-proyecto"]},
   {id:"ep-renovables", f:"ep", name:"Renovables", kind:"expo", lp:[1290,108], dims:"7,08 m × 4,00 m",
-   who:["6.º Mecánica"], years:[6], docentes:["De Vita"],
+   who:["6.º Mecánica"], years:[6], docentes:["Teglia Albano","Huarita"], proj:[{t:"Laboratorio de la instalación solar fotovoltaica",c:"6.º Mecánica (IyEMyM)"}],
    desc:"Aula de energías renovables, al fondo del hall junto al ascensor.", links:["ep-hall","ep-ascensor"]},
   {id:"ep-ascensor", f:"ep", name:"Ascensor (entrepiso)", short:"Ascensor", kind:"serv", icon:"lift", lp:[1467,111],
    desc:"Comunica el entrepiso con el hall del taller, en planta baja.", links:["ep-hall","ascensor"]},
   {id:"ep-escalera-hall", f:"ep", name:"Escalera del hall (entrepiso)", short:"Escalera", kind:"circ", icon:"stairs", lp:[1659,150],
    desc:"Llega desde el hall del taller, en planta baja.", links:["ep-hall","ep-cnc","escalera-hall"]},
   {id:"ep-cnc", f:"ep", name:"CNC", kind:"expo", lp:[2024,147], dims:"14,02 m × 4,49 m",
-   who:["CNC de 4.º A","CNC de 5.º A y B","Proyecto de 5.º B"], years:[4,5], docentes:["Reula"],
+   who:["CNC de 4.º A","CNC de 5.º A y B","Proyecto de 5.º B"], years:[4,5], docentes:["Reula"], proj:[{t:"Muestra de trabajos y actividad en vivo",c:"4.º y 5.º"}],
    desc:"Sobre el Aula Taller de planta baja. Se entra desde la pasarela.", links:["ep-pasarela","ep-escalera-hall"]},
   {id:"ep-pasarela", f:"ep", name:"Rampa y pasarela", short:"Pasarela", kind:"circ", lp:[1830,288],
    desc:"Rampa suave desde el hall y pasarela con baranda sobre la nave: desde acá se ve todo el taller. Al fondo baja la escalera recta a planta baja.", links:["ep-hall","ep-cnc","escalera-recta"]},
@@ -509,7 +512,7 @@ const ZONES = [
    who:[], years:[], docentes:["Roche"],
    desc:"Abierto al Laboratorio por una fila de boxes de trabajo.", links:["p1-laboratorio","p1-automatizacion"]},
   {id:"p1-automatizacion", f:"p1", name:"Taller Base", kind:"expo", lp:[2132,1946],
-   who:["1.º y 2.º año"], years:[1,2], docentes:["Moyano"],
+   who:["1.º y 2.º año"], years:[1,2], docentes:["Moyano"], proj:[{t:"Tableros básicos de instalación eléctrica expuesta y bajo caño"}],
    desc:"Al lado del Box de Instalaciones. Se entra desde el Laboratorio.", links:["p1-laboratorio","p1-electricidad"]},
   {id:"p1-laboratorio", f:"p1", name:"Laboratorio de Mediciones", short:"Lab. Mediciones", kind:"expo", lp:[1912,2222],
    who:["Proyecto de 4.º Electrónica y PPI","Proyecto de 5.º año"], years:[4,5], docentes:["Alikasie","Pantozzi","Ceballos"],
@@ -526,22 +529,27 @@ const ZONES = [
    desc:"Oficina entre el Master y el Laboratorio de Mediciones.", links:["p1-electronica","p1-master"]},
   {id:"p1-paso-dir", f:"p1", name:"Paso de dirección", short:"Paso", kind:"circ", lp:[855,2097],
    desc:"Pasillo entre el patio de María Auxiliadora y el taller de PLC. Al costado están la dirección, la secretaría y la sala de maestros.", links:["p1-patio-ma","p1-electronica","p1-direccion","p1-sala-maestros"]},
-  {id:"p1-patio-ma", f:"p1", name:"Patio de María Auxiliadora", short:"Patio M. Auxiliadora", kind:"circ", lp:[514,1314],
+  {id:"p1-patio-ma", f:"p1", name:"Patio cubierto (Piso María Auxiliadora)", short:"Patio cubierto", alt:"Patio de María Auxiliadora", kind:"expo", lp:[514,1314],
+   who:["1.º, 2.º y 3.º: Ciencias Sociales","1.º, 2.º, 4.º y 5.º BACOM: Comunicación"], years:[1,2,3,4,5], docentes:["Blanchet","Rojas","Nannini","Rodrigues Camabo","Blas Martín","Camaño"],
+   proj:[{"t": "Un viaje al pasado", "c": "1.º", "d": "Blanchet", "a": "Ciencias Sociales"}, {"t": "Cambiemos el cuento", "c": "2.º", "d": "Nannini, Blanchet, Tearoti y Alonso", "a": "Ciencias Sociales"}, {"t": "Del mapa al cuerpo", "c": "3.º", "d": "Rojas", "a": "Ciencias Sociales"}, {"t": "Efemérides", "c": "Nivel secundario", "d": "Docentes del área de Sociales", "a": "Ciencias Sociales"}, {"t": "Juego de las redes sociales", "c": "1.º BACOM", "d": "Rodrigues Camabo", "a": "Comunicación"}, {"t": "Cronistas escolares", "c": "2.º BACOM", "d": "Rodrigues Camabo", "a": "Comunicación"}, {"t": "Producciones radiales", "c": "4.º BACOM", "d": "Blas Martín", "a": "Comunicación"}, {"t": "Revista «Sin Berre»", "c": "5.º BACOM", "d": "Camaño", "a": "Comunicación"}],
    desc:"Patio techado del 1.er piso, del lado de la calle Cramer, frente a las aulas. En el extremo de la Escalera N.º 1 está el hall del mural, junto a la dirección; en el otro extremo, la Escalera N.º 2.", links:["p1-paso-dir","p1-escalera-1","p1-escalera-2","p1-aulas-cramer"]},
   {id:"p1-escalera-1", f:"p1", name:"Escalera N.º 1 (1.er piso)", short:"Esc. 1", kind:"circ", icon:"stairs", lp:[656,1931],
    desc:"Escalera N.º 1. Baja a planta baja, al acceso de Av. Dorrego más cercano a la esquina.", links:["p1-patio-ma","escalera-1"]},
   {id:"p1-escalera-2", f:"p1", name:"Escalera N.º 2 (1.er piso)", short:"Esc. 2", kind:"circ", icon:"stairs", lp:[594,194],
    desc:"Escalera N.º 2, en el extremo del patio que da a la calle Cramer.", links:["p1-patio-ma"]},
-  {id:"p1-aulas-cramer", f:"p1", name:"Aulas (1.er piso, lado Cramer)", short:"Aulas", kind:"aula", lp:[248,1143],
-   desc:"Aulas del 1.er piso sobre la calle Cramer, frente al patio de María Auxiliadora.", links:["p1-patio-ma"]},
+  {id:"p1-aulas-cramer", f:"p1", name:"Aulas 103 a 109 (Piso María Auxiliadora)", short:"Aulas 103–109", kind:"expo", lp:[248,1143],
+   who:["1.º a 5.º: Economía y Administración","3.º y 5.º BACOM: Comunicación","1.º a 5.º: Lengua y Literatura"], years:[1,2,3,4,5], docentes:["Pedró","Cortese","González Carbone","Pérez","De Tommaso","Rivarola","Camaño","Chiarelli","Guerrero"],
+   proj:[{"t": "¿Qué pasa en las redes? Taller de algoritmos para familias", "c": "5.º BACOM", "d": "Camaño", "a": "Aula 105 · 9.30 y 10.30 h"}, {"t": "Proyección de cortos Proyecto III y V", "c": "3.º y 5.º BACOM", "d": "Chiarelli", "a": "Aula 104 · 9 h (3.º) y 10 h (5.º)"}, {"t": "Viaje al centro", "c": "1.º, 2.º, 4.º y 5.º", "d": "Sánchez Burzomi, Guerrero, Reyna Morello y Zuluaga Zabalet", "a": "Aula 103 · Lengua y Literatura / Ciudadanía"}, {"t": "Comercialización y marketing: ¿de qué se trata?", "c": "4.º", "d": "Cortese", "a": "Aula 106 · Economía"}, {"t": "Modelos económicos y deuda externa en Argentina", "c": "5.º", "d": "Pedró", "a": "Aula 106 · Economía"}, {"t": "Proyectos presentados en Econ Joven 2027 (FCE-UBA)", "c": "5.º", "d": "Rivarola", "a": "Aula 106 · Economía"}, {"t": "Laboratorio de experiencias organizacionales", "c": "3.º", "d": "González Carbone y Pérez", "a": "Aula 107 · Economía"}, {"t": "Experiencias de organizaciones de la economía social, solidaria y popular", "c": "4.º", "d": "De Tommaso", "a": "Aula 108 · Economía"}, {"t": "Conociendo las organizaciones del barrio", "c": "1.º", "d": "Pedró", "a": "Aula 109 · Economía"}, {"t": "Juegoteca", "c": "2.º", "d": "Cortese", "a": "Aula 109 · Economía"}],
+   desc:"Aulas del 1.er piso sobre la calle Cramer, frente al patio cubierto.", links:["p1-patio-ma"]},
   {id:"p1-direccion", f:"p1", name:"Dirección y secretaría", short:"Dirección", kind:"serv", lp:[857,1931],
    desc:"Oficinas de dirección y secretaría, junto al paso.", links:["p1-paso-dir"]},
   {id:"p1-sala-maestros", f:"p1", name:"Sala de maestros", short:"Sala", kind:"serv", lp:[802,2314],
    desc:"Sala de maestros, al lado del paso de dirección.", links:["p1-paso-dir"]},
 
   // 2.º piso · sector Dorrego
-  {id:"p2-laboratorio", f:"p2", name:"Laboratorio de Química", short:"Lab. Química", kind:"expo", lp:[600,960],
-   who:[], years:[], docentes:[],
+  {id:"p2-laboratorio", f:"p2", name:"Laboratorios de Química y Alimentos", short:"Labs. Química y Alimentos", alt:"Agro y Ambiente", kind:"expo", lp:[600,960],
+   who:["2.º a 5.º: Agro y Ambiente"], years:[2,3,4,5], docentes:["Ledesma","Di Alessio","Salvá","Panza"],
+   proj:[{"t": "Producciones intensivas", "c": "2.º", "d": "Ledesma"}, {"t": "Evolución y alimentación", "c": "2.º", "d": "Di Alessio"}, {"t": "Conservas y encurtidos", "c": "3.º", "d": "Ledesma"}, {"t": "Kiosco saludable", "c": "4.º", "d": "Ledesma"}, {"t": "Taller de manipulación de alimentos (Zárate)", "c": "4.º", "d": "Ledesma"}, {"t": "Huerta, proyecto Zárate", "c": "4.º", "d": "Salvá"}, {"t": "Microplásticos", "c": "4.º", "d": "Panza"}, {"t": "Prácticas en la E.A.S. Don Bosco, Uribelarrea", "c": "5.º", "d": "Ledesma y Salvá"}, {"t": "Desarrollo de producto", "c": "5.º", "d": "Ledesma"}],
    desc:"Laboratorio con mesadas de trabajo con pileta, sobre la Av. Dorrego. Se entra desde el hall de la escalera o desde el aula.", links:["p2-hall","p2-aula"]},
   {id:"p2-aula", f:"p2", name:"Aula (2.º piso)", short:"Aula", kind:"aula", lp:[470,480],
    desc:"Aula con mesada, entre el hall de la escalera y la terraza.", links:["p2-hall","p2-laboratorio","p2-terraza","p2-hall-dorrego"]},
@@ -845,7 +853,9 @@ function whoBlock(z) {
   const docs = z.docentes || [];
   return `<div class="expocard">
     <h3 style="margin:0">Quién expone</h3>
-    ${z.who && z.who.length ? `<ul class="who">${z.who.map(w => `<li><span>${esc(w)}</span></li>`).join("")}</ul>` : `<p class="soon">Cursos a confirmar.</p>`}
+    ${z.proj && z.proj.length ? `<ul class="who proj">${z.proj.map(p => `<li><span><b>${esc(p.t)}</b>${[p.c, p.d, p.a].filter(Boolean).length ? `<small>${esc([p.c, p.d, p.a].filter(Boolean).join(" · "))}</small>` : ""}</span></li>`).join("")}</ul>` : ""}
+    ${z.proj && z.proj.length ? "" : z.who && z.who.length ? `<ul class="who">${z.who.map(w => `<li><span>${esc(w)}</span></li>`).join("")}</ul>` : `<p class="soon">Cursos a confirmar.</p>`}
+    ${z.proj && z.proj.length && z.who && z.who.length ? `<p class="doc">Cursos: ${esc(z.who.join(" · "))}</p>` : ""}
     ${z.years && z.years.length ? `<div class="years" aria-label="Años">${z.years.map(y => `<span class="yr">${ord(y)} año</span>`).join("")}</div>` : ""}
     ${docs.length ? `<p class="doc">${docs.length > 1 ? "Docentes referentes" : "Docente referente"}: <b>${esc(list(docs))}</b></p>` : ""}
   </div>`;
@@ -895,7 +905,7 @@ function renderExpos() {
   const q = norm(S.q);
   const items = ZONES.filter(z => z.kind === "expo")
     .filter(z => !S.year || (z.years || []).includes(S.year))
-    .filter(z => !q || norm([z.name, z.alt, ...(z.who || []), ...(z.docentes || []), FLOORS[z.f].label].join(" ")).includes(q));
+    .filter(z => !q || norm([z.name, z.alt, ...(z.who || []), ...(z.docentes || []), ...(z.proj || []).map(p => [p.t, p.c, p.d, p.a].join(" ")), FLOORS[z.f].label].join(" ")).includes(q));
   const out = $("#expoList");
   if (!items.length) {
     out.innerHTML = `<div class="empty">${q ? "No encontramos nada con esa búsqueda. Probá con otra palabra." : `No hay exposiciones cargadas para ${ord(S.year)} año.`}</div>`;
@@ -905,7 +915,9 @@ function renderExpos() {
   out.innerHTML = head + ORDER.map(f => {
     const it = items.filter(z => z.f === f); if (!it.length) return "";
     return `<div class="group"><h3>${esc(FLOORS[f].label)}</h3>${it.map(z => {
-      const who = S.year ? (z.who || []).filter(w => w.includes(ord(S.year))) : (z.who || []);
+      const yr = S.year ? ord(S.year) : "";
+      const pj = S.year && z.proj && z.proj.some(p => p.d) ? z.proj.filter(p => (p.c || "").includes(yr) || /todos|secundario/i.test(p.c || "")).map(p => p.t) : [];
+      const who = S.year ? (pj.length ? pj : (z.who || []).filter(w => w.includes(yr) || /todos/i.test(w))) : (z.who || []);
       return `<button type="button" class="item" data-go="${z.id}">
         <span class="dot" style="--c:${colorOf(z)}"></span>
         <span class="tx"><b>${esc(z.name)}</b><small>${who.length ? esc(who.join(" · ")) : "Cursos a confirmar"}</small></span>
