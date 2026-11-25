@@ -752,7 +752,12 @@ function drawMarks() {
   rescale();
 }
 
-/* Etiquetas e íconos a tamaño de pantalla: un nombre solo se muestra si entra en su espacio. */
+/* Etiquetas e íconos a tamaño de pantalla: el nombre siempre se ve; si no entra, se achica o pasa a dos renglones. */
+function splitTwo(t) {
+  const w = t.split(" "); let best = null, bd = 1e9;
+  for (let i = 1; i < w.length; i++) { const a = w.slice(0, i).join(" "), b = w.slice(i).join(" "), d = Math.max(a.length, b.length); if (d < bd) { bd = d; best = [a, b]; } }
+  return best;
+}
 function rescale() {
   const k = vb.w / cw;
   for (const L of labelEls) {
@@ -764,12 +769,26 @@ function rescale() {
       L.icon.style.display = show ? "" : "none";
       continue;
     }
-    const px = z.kind === "expo" ? 15 : 12.5, est = L.txt.length * px * .56 + 8;
-    const fits = bwPx >= est && bhPx >= px + 6, room = z.icon ? bhPx >= px + 30 : true;
-    L.t.style.display = fits && room ? "" : "none";
-    L.t.setAttribute("font-size", px * k);
-    L.t.setAttribute("stroke-width", 4 * k);
-    L.t.setAttribute("y", z.icon ? z.lp[1] + 20 * k : z.lp[1]);
+    const px = z.kind === "expo" ? 15 : 12.5, W = bwPx - 6, Hh = (z.icon ? bhPx - 26 : bhPx) - 4;
+    const one = Math.min(px, W / (L.txt.length * .56), Hh);
+    let lines = [L.txt], fs = one;
+    const cut = L.txt.indexOf(" ") > 0 ? splitTwo(L.txt) : null;
+    if (one < px * .85 && cut) {
+      const two = Math.min(px, W / (Math.max(cut[0].length, cut[1].length) * .56), Hh / 2.3);
+      if (two > one) { lines = cut; fs = two; }
+    }
+    fs = Math.max(fs, 8.5);
+    const key = lines.join("\n");
+    if (L.key !== key) {
+      L.key = key; L.t.textContent = "";
+      lines.forEach((ln, i) => { const ts = el("tspan", {x:z.lp[0]}, ln); L.t.appendChild(ts); });
+    }
+    const y0 = z.icon ? z.lp[1] + 20 * k : z.lp[1], lh = fs * 1.15 * k;
+    [...L.t.children].forEach((ts, i) => ts.setAttribute("y", y0 + (i - (lines.length - 1) / 2) * lh));
+    L.t.style.display = "";
+    L.t.setAttribute("font-size", fs * k);
+    L.t.setAttribute("stroke-width", Math.min(4, fs * .28) * k);
+    L.t.setAttribute("y", y0);
   }
   for (const v of gVoids.children) v.setAttribute("font-size", 11 * k);
   for (const m of markEls) m.g.setAttribute("transform", `translate(${m.x},${m.y}) scale(${k})`);
