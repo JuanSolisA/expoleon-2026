@@ -292,6 +292,20 @@ h3{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em
 .go-hs:hover .go-dot{transform:scale(1.12)}
 .go-hs .go-lbl{position:absolute;top:32px;left:0;transform:translateX(-50%);white-space:nowrap;background:rgba(19,36,58,.85);color:#fff;font:600 13px/1.2 var(--f-body);padding:5px 10px;border-radius:99px;pointer-events:none}
 
+
+/* bienvenida (vista previa) */
+.welcome{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,0);width:min(460px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 48px rgba(10,20,35,.28);padding:18px 18px 14px;z-index:60;animation:wIn .35s ease-out}
+@keyframes wIn{from{opacity:0;transform:translate(-50%,16px)}to{opacity:1;transform:translate(-50%,0)}}
+@media(prefers-reduced-motion:reduce){.welcome{animation:none}}
+.welcome h2{font-family:var(--f-display);font-size:21px;line-height:1.15;margin:0 34px 4px 0}
+.welcome p{margin:0 0 12px;color:var(--muted);font-size:15px}.welcome .wtip{display:block;font-size:13px;margin-top:2px}
+.welcome .wopts{display:grid;gap:8px}
+.welcome .wopt{display:flex;align-items:center;gap:12px;min-height:54px;padding:8px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);font:600 16px/1.2 var(--f-body);text-align:left;cursor:pointer;width:100%}
+.welcome .wopt:hover{border-color:var(--ink)}.welcome .wopt:focus-visible{outline:3px solid var(--route);outline-offset:2px}
+.welcome .wopt svg{width:24px;height:24px;flex:none}
+.welcome .wopt small{display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:2px}
+.welcome .wx{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;border:0;background:none;color:var(--muted);font-size:22px;cursor:pointer}
+@media(max-width:760px){.welcome{bottom:calc(76px + env(safe-area-inset-bottom))}}
 </style>
 </head>
 <body data-view="map" data-sheet="closed">
@@ -377,7 +391,7 @@ h3{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em
         <span class="lab" id="yearlab">¿En qué año está tu hijo o hija?</span>
         <div class="yearrow" role="group" aria-labelledby="yearlab" id="yearrow"></div>
       </div>
-      <input class="search" id="q" type="search" placeholder="Buscá un espacio, curso o docente" aria-label="Buscar" autocomplete="off" enterkeyhint="search">
+      <input class="search" id="q" type="search" placeholder="Buscá un espacio o un curso" aria-label="Buscar" autocomplete="off" enterkeyhint="search">
       <div id="expoList" style="display:flex;flex-direction:column;gap:18px"></div>
     </div>
     <div class="pane" role="tabpanel" id="p-ruta" aria-labelledby="t-ruta" hidden>
@@ -395,6 +409,16 @@ h3{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em
   </aside>
 </main>
 
+<div class="welcome" id="welcome" role="dialog" aria-labelledby="wTitle" hidden>
+  <button type="button" class="wx" id="wx" aria-label="Cerrar">×</button>
+  <h2 id="wTitle">¡Bienvenidos a la Muestra!</h2>
+  <p>¿Qué querés hacer? <span class="wtip">Si ves un cartel con QR, escanealo y te marca dónde estás.</span></p>
+  <div class="wopts">
+    <button type="button" class="wopt" data-w="expos"><svg aria-hidden="true" style="color:var(--expo)"><use href="#i-list"/></svg><span>Buscar qué expone un curso<small>Elegí el año de tu hijo o hija</small></span></button>
+    <button type="button" class="wopt" data-w="map"><svg aria-hidden="true" style="color:var(--route)"><use href="#i-map"/></svg><span>Ver el mapa del colegio<small>Taller, galería, María Auxiliadora y 2.º piso</small></span></button>
+    <button type="button" class="wopt" data-w="vistas"><svg aria-hidden="true" style="color:var(--cam)"><use href="#i-cam"/></svg><span>Recorrido 360°<small>Mirá los espacios como si estuvieras ahí</small></span></button>
+  </div>
+</div>
 <nav class="bottomnav" aria-label="Secciones">
   <button type="button" data-nav="map" aria-current="page"><svg aria-hidden="true"><use href="#i-map"/></svg>Mapa</button>
   <button type="button" data-nav="expos"><svg aria-hidden="true"><use href="#i-list"/></svg>Expositores</button>
@@ -1284,6 +1308,24 @@ function fromHash() {
 window.addEventListener("hashchange", fromHash);
 
 fillSelects(); renderExpos(); measure(); drawFloor("pb"); renderFicha(); computeRoute(); fromHash();
+
+/* ---------- bienvenida (vista previa): solo si se entra sin #lugar ---------- */
+(() => {
+  const w = document.getElementById("welcome"); if (!w || location.hash.length > 1) return;
+  const KEY = "bienvenida-vista"; try { if (localStorage.getItem(KEY)) return; } catch (e) {}
+  const close = () => { w.hidden = true; try { localStorage.setItem(KEY, "1"); } catch (e) {} document.removeEventListener("pointerdown", outside, true); };
+  const outside = e => { if (!w.contains(e.target)) close(); };
+  w.addEventListener("click", e => {
+    if (e.target.closest("#wx")) return close();
+    const b = e.target.closest("[data-w]"); if (!b) return; close();
+    const k = b.dataset.w;
+    if (k === "expos") { if (isPhone()) goView("expos"); else setTab("expos"); }
+    if (k === "vistas") openPano(panoById("v-hall-principal") ? "v-hall-principal" : PANOS[0].id);
+  });
+  window.addEventListener("hashchange", close);
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !w.hidden) close(); });
+  setTimeout(() => { w.hidden = false; document.addEventListener("pointerdown", outside, true); }, 400);
+})();
 </script>
 </body>
 </html>
