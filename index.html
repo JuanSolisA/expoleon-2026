@@ -296,6 +296,23 @@ h3{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em
 .edit-bar .btn{padding:6px 10px;font-size:12px;min-height:0}
 .edit-bar pre{flex-basis:100%;white-space:pre-wrap;font-size:12px;margin:0;max-height:120px;overflow:auto;user-select:text}
 .go-hs{width:0;height:0;cursor:pointer}
+.vid-hs{width:0;height:0;cursor:pointer}
+.vid-hs .vid-dot{position:absolute;left:-32px;top:-32px;width:64px;height:64px;border-radius:50%;background:#A4282F;border:3px solid #fff;box-shadow:0 2px 12px rgba(0,0,0,.4);display:grid;place-items:center;animation:vidpulse 2.2s ease-out infinite}
+.vid-hs .vid-dot svg{width:28px;height:28px;margin-left:4px;fill:#fff}
+.vid-hs:hover .vid-dot{transform:scale(1.1)}
+.vid-hs .vid-lbl{position:absolute;bottom:40px;left:0;transform:translateX(-50%);white-space:nowrap;background:rgba(19,36,58,.88);color:#fff;font:600 13px/1.25 var(--f-body);padding:6px 12px;border-radius:12px;text-align:center;pointer-events:none}
+.vid-hs .vid-lbl small{display:block;font-weight:400;font-size:12px;opacity:.85}
+@keyframes vidpulse{0%{box-shadow:0 0 0 0 rgba(164,40,47,.55),0 2px 12px rgba(0,0,0,.4)}70%{box-shadow:0 0 0 18px rgba(164,40,47,0),0 2px 12px rgba(0,0,0,.4)}100%{box-shadow:0 0 0 0 rgba(164,40,47,0),0 2px 12px rgba(0,0,0,.4)}}
+@media (prefers-reduced-motion:reduce){.vid-hs .vid-dot{animation:none}}
+.pvid{position:absolute;inset:0;z-index:5;background:rgba(8,16,28,.72);display:grid;place-items:center;padding:16px}
+.pvid .box{width:min(960px,100%);background:var(--surface);color:var(--ink);border-radius:16px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.45)}
+.pvid .bar{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 16px}
+.pvid .bar b{flex:1;min-width:0;font-family:var(--f-display);font-size:17px;line-height:1.2}
+.pvid .bar small{display:block;font-family:var(--f-mono);font-size:11px;color:var(--muted);font-weight:400}
+.pvid .vid{border-radius:0}
+#panoVidBtn{background:#A4282F;color:#fff;border-color:#A4282F}
+#panoVidBtn svg{fill:#fff}
+@media (max-width:600px){#panoVidBtn .vt{display:none}#panoVidBtn{padding-inline:12px}.pano header small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}}
 .go-hs .go-dot{position:absolute;left:-26px;top:-26px;width:52px;height:52px;border-radius:50%;background:rgba(19,61,107,.82);border:3px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.35);display:grid;place-items:center;transition:transform .15s}
 .go-hs .go-dot svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .go-hs:hover .go-dot{transform:scale(1.12)}
@@ -437,10 +454,11 @@ h3{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em
 <div class="pano" id="pano" hidden role="dialog" aria-modal="true" aria-labelledby="panoTitle">
   <header class="gut">
     <div class="tx"><b id="panoTitle"></b><small id="panoSub"></small></div>
+    <button type="button" class="btn" id="panoVidBtn" hidden aria-label="Ver video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span class="vt">Video</span></button>
     <button type="button" class="btn" id="panoMap">Ver en el plano</button>
     <button type="button" class="btn" id="panoClose" aria-label="Cerrar vista 360°"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
   </header>
-  <div class="view"><div id="pv"></div><div class="pending" id="panoPending" hidden><div class="box"><svg aria-hidden="true"><use href="#i-cam"/></svg><b>Vista 360° en preparación</b><p>Desde este punto vas a poder girar la imagen para ver todo el espacio y ubicarte antes de recorrerlo.</p></div></div></div>
+  <div class="view"><div id="pv"></div><div class="pvid" id="pvid" hidden role="dialog" aria-modal="true" aria-labelledby="pvidT"><div class="box"><div class="bar"><b id="pvidT"></b><button type="button" class="btn" id="pvidX" aria-label="Cerrar video"><svg aria-hidden="true"><use href="#i-x"/></svg></button></div><div id="pvidBody"></div></div></div><div class="pending" id="panoPending" hidden><div class="box"><svg aria-hidden="true"><use href="#i-cam"/></svg><b>Vista 360° en preparación</b><p>Desde este punto vas a poder girar la imagen para ver todo el espacio y ubicarte antes de recorrerlo.</p></div></div></div>
   <footer class="gut" id="panoList" aria-label="Otras vistas 360°"></footer>
 </div>
 
@@ -1249,9 +1267,25 @@ function hotspotOf(p, t, yaw0, pitch0) {
     targetYaw: by !== null ? yawNorm(by + 180) : "sameAzimuth", targetPitch:0,
     cssClass:"go-hs", createTooltipFunc:goHotspot, createTooltipArgs:{txt, key:p.id + ">" + t, from:p.id, to:t}};
 }
+const PANO_VIDS = {"v-hall-principal":[{v:"QSdl_RH2ySA", t:"Proyectos de Año", c:"1° año", yaw:3, pitch:-2}]};
+function vidHotspot(div, a) {
+  div.innerHTML = `<span class="vid-dot" aria-hidden="true">${PLAY}</span><span class="vid-lbl">▶ Ver video: ${esc(a.t)}<small>${esc(a.c || "")}</small></span>`;
+  div.setAttribute("role", "button"); div.setAttribute("aria-label", `Ver video: ${a.t} ${a.c || ""}`);
+}
+function openVid(a) {
+  $("#pvidT").innerHTML = `${esc(a.t)}<small>${esc(a.c || "")}</small>`;
+  const id = encodeURIComponent(a.v);
+  $("#pvidBody").innerHTML = CAN_EMBED
+    ? `<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1" title="${esc(a.t)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>`
+    : videoCard({v:a.v, t:a.t, vt:[a.t, a.c].filter(Boolean).join(" · ")});
+  $("#pvid").hidden = false; $("#pvidX").focus();
+}
+function closeVid() { if ($("#pvid").hidden) return false; $("#pvid").hidden = true; $("#pvidBody").innerHTML = ""; return true; }
 function sceneOf(p) {
   return {type:"equirectangular", panorama:p.img, hfov:100, yaw:p.yaw || 0, pitch:0,
-    hotSpots:(GO[p.id] || []).filter(([t]) => panoById(t) && panoById(t).img).map(([t, yaw, pitch]) => hotspotOf(p, t, yaw, pitch))};
+    hotSpots:(GO[p.id] || []).filter(([t]) => panoById(t) && panoById(t).img).map(([t, yaw, pitch]) => hotspotOf(p, t, yaw, pitch))
+      .concat((PANO_VIDS[p.id] || []).map((a, i) => ({id:p.id + ">video" + i, type:"info", yaw:a.yaw, pitch:a.pitch, cssClass:"vid-hs",
+        createTooltipFunc:vidHotspot, createTooltipArgs:a, clickHandlerFunc:(e, x) => openVid(x), clickHandlerArgs:a})))};
 }
 function editBar() {
   if (!EDIT) return;
@@ -1276,6 +1310,7 @@ function panoHeader(p) {
   panoCur = p;
   $("#panoTitle").textContent = p.name;
   $("#panoSub").textContent = `${FLOORS[p.f].label} · ${p.hint}`;
+  closeVid(); $("#panoVidBtn").hidden = !(PANO_VIDS[p.id] || []).length;
   $("#panoList").querySelectorAll("[data-pano]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.pano === p.id)));
   const cur = $("#panoList").querySelector(`[data-pano="${p.id}"]`); if (cur) cur.scrollIntoView({block:"nearest", inline:"nearest"});
 }
@@ -1303,14 +1338,18 @@ async function openPano(id) {
   } catch (e) { $("#panoPending").hidden = false; }
 }
 function closePano() {
+  closeVid();
   $("#pano").hidden = true;
   if (viewer) { try { viewer.destroy(); } catch (e) {} viewer = null; }
   if (panoReturn && panoReturn.focus) panoReturn.focus();
 }
 $("#panoClose").addEventListener("click", closePano);
+$("#panoVidBtn").addEventListener("click", () => { const a = (PANO_VIDS[panoCur && panoCur.id] || [])[0]; if (a) openVid(a); });
+$("#pvidX").addEventListener("click", () => { closeVid(); $("#panoVidBtn").focus(); });
+$("#pvid").addEventListener("click", e => { if (e.target.id === "pvid") closeVid(); });
 $("#panoMap").addEventListener("click", () => { const p = panoCur; closePano(); if (p) select(p.zone); });
 $("#panoList").addEventListener("click", e => { const b = e.target.closest("[data-pano]"); if (b) openPano(b.dataset.pano); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") { if (!$("#pano").hidden) closePano(); else if (S.sheet && isPhone()) closeSheet(); } });
+document.addEventListener("keydown", e => { if (e.key === "Escape") { if (closeVid()) return; if (!$("#pano").hidden) closePano(); else if (S.sheet && isPhone()) closeSheet(); } });
 
 /* ---------- accesos rápidos ---------- */
 document.querySelectorAll("[data-quick]").forEach(b => b.addEventListener("click", () => {
