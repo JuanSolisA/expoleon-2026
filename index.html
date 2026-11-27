@@ -153,6 +153,15 @@ h1{font-family:var(--f-display);font-weight:800;font-size:clamp(28px,5vw,40px);l
 h2{font-family:var(--f-display);font-weight:800;font-size:26px;line-height:1.1;margin:4px 0 2px;text-wrap:balance}
 h3{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
 .meta{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.vid{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:12px;overflow:hidden;padding:0;cursor:pointer;background:linear-gradient(135deg,#133D6B,#1f4f86);color:#fff;font:inherit;text-decoration:none}
+.vid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vid .vplay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.55));text-align:center;padding:12px}
+.vid .vbtn{width:60px;height:60px;border-radius:50%;background:#A4282F;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.vid .vbtn svg{width:26px;height:26px;margin-left:3px;fill:#fff}
+.vid .vlab{font-weight:700;font-size:15px;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.vid .vlab small{display:block;font-weight:400;font-size:13px;opacity:.9}
+.vid:focus-visible{outline:3px solid #FFD15E;outline-offset:2px}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .expocard{border:1px solid color-mix(in srgb,var(--expo) 40%,var(--line));border-radius:14px;padding:14px;background:color-mix(in srgb,var(--expo) 6%,var(--surface));display:flex;flex-direction:column;gap:10px}
 .who{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
 .who li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;font-size:16px;line-height:1.35}
@@ -483,7 +492,7 @@ const ZONES = [
    desc:"Une la galería del colegio con el taller. De acá salen la entrada al hall y la Escalera N.º 4.", links:["hall","escalera-4","banos","galeria"]},
   {id:"galeria", f:"pb", name:"Galería", kind:"expo", lp:[1307,264],
    who:["5.º BAECO-BAGRA","Todos los años: Proyectos de Año"], years:[1,2,3,4,5,6],
-   proj:[{t:"Sabores Salesianos",c:"5.º",a:"BAECO-BAGRA"},{t:"Proyectos de Año",c:"Todos los años",}],
+   proj:[{t:"Sabores Salesianos",c:"5.º",a:"BAECO-BAGRA"},{t:"Proyectos de Año",c:"Todos los años",v:"QSdl_RH2ySA",vt:"Proyectos de Año · 1° año"}],
    desc:"Galería del colegio con ventanales al patio central. Une el acceso de Av. Dorrego y la Escalera N.º 1 con el patio de bebederos, la Escalera N.º 4 y el taller.", links:["acceso-dorrego","acceso-lateral","patio"]},
   {id:"acceso-dorrego", f:"pb", name:"Acceso principal (Av. Dorrego)", short:"Acceso", kind:"circ", lp:[1295,513], entry:true,
    desc:"Entrada principal del colegio por Av. Dorrego. Desde el hall de acceso se pasa a la galería y de ahí al taller.", links:["galeria"]},
@@ -933,12 +942,20 @@ function linkChip(from, id) {
   if (!d) return `<button type="button" class="chip" data-go="${id}"><span class="dot" style="--c:${colorOf(z)}"></span>${esc(z.name)}</button>`;
   return `<button type="button" class="chip move" data-go="${id}"><span class="dot" style="--c:${colorOf(z)}"></span><span><small>${d > 0 ? "↑ Subís a" : "↓ Bajás a"} ${esc(FLOORS[z.f].to)}</small>${esc(z.name)}</span></button>`;
 }
+const CAN_EMBED = /(^|\.)(proyectossecundarialxiii\.com\.ar|github\.io)$/.test(location.hostname);
+const PLAY = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>`;
+function videoCard(p) {
+  const id = encodeURIComponent(p.v), lab = `<span class="vlab">Ver video<small>${esc(p.vt || p.t)}</small></span>`;
+  if (CAN_EMBED) return `<button type="button" class="vid" data-yt="${id}" aria-label="Reproducir video: ${esc(p.vt || p.t)}"><img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="vplay"><span class="vbtn">${PLAY}</span>${lab}</span></button>`;
+  return `<a class="vid" href="https://youtu.be/${id}" target="_blank" rel="noopener"><span class="vplay"><span class="vbtn">${PLAY}</span>${lab}<small>Se abre en YouTube</small></span></a>`;
+}
 function whoBlock(z) {
   return `<div class="expocard">
     <h3 style="margin:0">Quién expone</h3>
     ${z.proj && z.proj.length ? `<ul class="who proj">${z.proj.map(p => `<li><span><b>${esc(p.t)}</b>${[p.c, p.a].filter(Boolean).length ? `<small>${esc([p.c, p.a].filter(Boolean).join(" · "))}</small>` : ""}</span></li>`).join("")}</ul>` : ""}
     ${z.proj && z.proj.length ? "" : z.who && z.who.length ? `<ul class="who">${z.who.map(w => `<li><span>${esc(w)}</span></li>`).join("")}</ul>` : `<p class="soon">Cursos a confirmar.</p>`}
     ${z.proj && z.proj.length && z.who && z.who.length ? `<p class="doc">Cursos: ${esc(z.who.join(" · "))}</p>` : ""}
+    ${(z.proj || []).filter(p => p.v).map(videoCard).join("")}
     ${z.years && z.years.length ? `<div class="years" aria-label="Años">${z.years.map(y => `<span class="yr">${ord(y)} año</span>`).join("")}</div>` : ""}
   </div>`;
 }
@@ -972,6 +989,8 @@ function renderFicha() {
     <div><h3>Desde acá podés ir a</h3><div class="links">${z.links.map(l => linkChip(z, l)).join("")}</div></div>`;
 }
 $("#p-espacio").addEventListener("click", e => {
+  const v = e.target.closest("[data-yt]");
+  if (v) { const d = document.createElement("div"); d.className = "vid"; d.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${v.dataset.yt}?autoplay=1&rel=0&playsinline=1" title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`; v.replaceWith(d); return; }
   const b = e.target.closest("[data-go],[data-act]"); if (!b) return;
   if (b.dataset.go) return select(b.dataset.go);
   const a = b.dataset.act;
