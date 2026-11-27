@@ -297,13 +297,15 @@ h3{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em
 .edit-bar pre{flex-basis:100%;white-space:pre-wrap;font-size:12px;margin:0;max-height:120px;overflow:auto;user-select:text}
 .go-hs{width:0;height:0;cursor:pointer}
 .vid-hs{width:0;height:0;cursor:pointer}
-.vid-hs .vid-dot{position:absolute;left:-32px;top:-32px;width:64px;height:64px;border-radius:50%;background:#A4282F;border:3px solid #fff;box-shadow:0 2px 12px rgba(0,0,0,.4);display:grid;place-items:center;animation:vidpulse 2.2s ease-out infinite}
-.vid-hs .vid-dot svg{width:28px;height:28px;margin-left:4px;fill:#fff}
-.vid-hs:hover .vid-dot{transform:scale(1.1)}
-.vid-hs .vid-lbl{position:absolute;bottom:40px;left:0;transform:translateX(-50%);white-space:nowrap;background:rgba(19,36,58,.88);color:#fff;font:600 13px/1.25 var(--f-body);padding:6px 12px;border-radius:12px;text-align:center;pointer-events:none}
+.vid-hs .vid-card{position:absolute;left:-88px;top:-50px;width:176px;height:99px;border-radius:12px;border:3px solid #fff;overflow:hidden;background:linear-gradient(135deg,#133D6B,#1f4f86);box-shadow:0 4px 16px rgba(0,0,0,.45);display:grid;place-items:center;transition:transform .15s;animation:vidpulse 2.2s ease-out infinite}
+.vid-hs .vid-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vid-hs .vid-dot{position:relative;width:46px;height:46px;border-radius:50%;background:#A4282F;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.4);display:grid;place-items:center}
+.vid-hs .vid-dot svg{width:22px;height:22px;margin-left:3px;fill:#fff}
+.vid-hs:hover .vid-card{transform:scale(1.06)}
+.vid-hs .vid-lbl{position:absolute;bottom:56px;left:0;transform:translateX(-50%);white-space:nowrap;background:rgba(19,36,58,.88);color:#fff;font:600 13px/1.25 var(--f-body);padding:6px 12px;border-radius:12px;text-align:center;pointer-events:none}
 .vid-hs .vid-lbl small{display:block;font-weight:400;font-size:12px;opacity:.85}
-@keyframes vidpulse{0%{box-shadow:0 0 0 0 rgba(164,40,47,.55),0 2px 12px rgba(0,0,0,.4)}70%{box-shadow:0 0 0 18px rgba(164,40,47,0),0 2px 12px rgba(0,0,0,.4)}100%{box-shadow:0 0 0 0 rgba(164,40,47,0),0 2px 12px rgba(0,0,0,.4)}}
-@media (prefers-reduced-motion:reduce){.vid-hs .vid-dot{animation:none}}
+@keyframes vidpulse{0%{box-shadow:0 0 0 0 rgba(164,40,47,.6),0 4px 16px rgba(0,0,0,.45)}70%{box-shadow:0 0 0 16px rgba(164,40,47,0),0 4px 16px rgba(0,0,0,.45)}100%{box-shadow:0 0 0 0 rgba(164,40,47,0),0 4px 16px rgba(0,0,0,.45)}}
+@media (prefers-reduced-motion:reduce){.vid-hs .vid-card{animation:none}}
 .pvid{position:absolute;inset:0;z-index:5;background:rgba(8,16,28,.72);display:grid;place-items:center;padding:16px}
 .pvid .box{width:min(960px,100%);background:var(--surface);color:var(--ink);border-radius:16px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.45)}
 .pvid .bar{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 16px}
@@ -510,7 +512,7 @@ const ZONES = [
    desc:"Une la galería del colegio con el taller. De acá salen la entrada al hall y la Escalera N.º 4.", links:["hall","escalera-4","banos","galeria"]},
   {id:"galeria", f:"pb", name:"Galería", kind:"expo", lp:[1307,264],
    who:["5.º BAECO-BAGRA","Todos los años: Proyectos de Año"], years:[1,2,3,4,5,6],
-   proj:[{t:"Sabores Salesianos",c:"5.º",a:"BAECO-BAGRA"},{t:"Proyectos de Año",c:"Todos los años",v:"QSdl_RH2ySA",vt:"Proyectos de Año · 1° año"}],
+   proj:[{t:"Sabores Salesianos",c:"5.º",a:"BAECO-BAGRA"},{t:"Proyectos de Año",c:"Todos los años"}],
    desc:"Galería del colegio con ventanales al patio central. Une el acceso de Av. Dorrego y la Escalera N.º 1 con el patio de bebederos, la Escalera N.º 4 y el taller.", links:["acceso-dorrego","acceso-lateral","patio"]},
   {id:"acceso-dorrego", f:"pb", name:"Acceso principal (Av. Dorrego)", short:"Acceso", kind:"circ", lp:[1295,513], entry:true,
    desc:"Entrada principal del colegio por Av. Dorrego. Desde el hall de acceso se pasa a la galería y de ahí al taller.", links:["galeria"]},
@@ -960,12 +962,28 @@ function linkChip(from, id) {
   if (!d) return `<button type="button" class="chip" data-go="${id}"><span class="dot" style="--c:${colorOf(z)}"></span>${esc(z.name)}</button>`;
   return `<button type="button" class="chip move" data-go="${id}"><span class="dot" style="--c:${colorOf(z)}"></span><span><small>${d > 0 ? "↑ Subís a" : "↓ Bajás a"} ${esc(FLOORS[z.f].to)}</small>${esc(z.name)}</span></button>`;
 }
+/* ---------- VIDEOS ----------
+   Para sumar un video, agregá una línea:
+   yt: código del link de YouTube (lo que va después de youtu.be/)
+   t: título · c: curso · zona: id del espacio del plano (ficha)
+   pano: id de la vista 360° (opcional) · yaw/pitch: dónde aparece el botón en la foto 360°
+   La miniatura sale sola de YouTube. */
+const VIDEOS = [
+  {yt:"QSdl_RH2ySA", t:"Proyectos de Año", c:"1° año", zona:"galeria", pano:"v-hall-principal", yaw:9, pitch:0},
+];
 const CAN_EMBED = /(^|\.)(proyectossecundarialxiii\.com\.ar|github\.io)$/.test(location.hostname);
 const PLAY = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>`;
-function videoCard(p) {
-  const id = encodeURIComponent(p.v), lab = `<span class="vlab">Ver video<small>${esc(p.vt || p.t)}</small></span>`;
-  if (CAN_EMBED) return `<button type="button" class="vid" data-yt="${id}" aria-label="Reproducir video: ${esc(p.vt || p.t)}"><img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="vplay"><span class="vbtn">${PLAY}</span>${lab}</span></button>`;
-  return `<a class="vid" href="https://youtu.be/${id}" target="_blank" rel="noopener"><span class="vplay"><span class="vbtn">${PLAY}</span>${lab}<small>Se abre en YouTube</small></span></a>`;
+// Miniatura: en el sitio, la de YouTube; en la vista de Claude (no carga imágenes externas), la copia en videos/<código>.jpg si existe.
+function thumbImg(yt, lazy) {
+  const id = encodeURIComponent(yt), local = `videos/${id}.jpg`;
+  const src = CAN_EMBED ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : local;
+  return `<img src="${src}" alt=""${lazy ? ' loading="lazy"' : ""} onerror="if(this.dataset.f||!${CAN_EMBED}){this.remove()}else{this.dataset.f=1;this.src='${local}'}">`;
+}
+function videoCard(x) {
+  const id = encodeURIComponent(x.yt), name = [x.t, x.c].filter(Boolean).join(" · "), lab = `<span class="vlab">Ver video<small>${esc(name)}</small></span>`;
+  const img = thumbImg(x.yt, true);
+  if (CAN_EMBED) return `<button type="button" class="vid" data-yt="${id}" aria-label="Reproducir video: ${esc(name)}">${img}<span class="vplay"><span class="vbtn">${PLAY}</span>${lab}</span></button>`;
+  return `<a class="vid" href="https://youtu.be/${id}" target="_blank" rel="noopener">${img}<span class="vplay"><span class="vbtn">${PLAY}</span>${lab}<small>Se abre en YouTube</small></span></a>`;
 }
 function whoBlock(z) {
   return `<div class="expocard">
@@ -973,7 +991,7 @@ function whoBlock(z) {
     ${z.proj && z.proj.length ? `<ul class="who proj">${z.proj.map(p => `<li><span><b>${esc(p.t)}</b>${[p.c, p.a].filter(Boolean).length ? `<small>${esc([p.c, p.a].filter(Boolean).join(" · "))}</small>` : ""}</span></li>`).join("")}</ul>` : ""}
     ${z.proj && z.proj.length ? "" : z.who && z.who.length ? `<ul class="who">${z.who.map(w => `<li><span>${esc(w)}</span></li>`).join("")}</ul>` : `<p class="soon">Cursos a confirmar.</p>`}
     ${z.proj && z.proj.length && z.who && z.who.length ? `<p class="doc">Cursos: ${esc(z.who.join(" · "))}</p>` : ""}
-    ${(z.proj || []).filter(p => p.v).map(videoCard).join("")}
+    ${VIDEOS.filter(x => x.zona === z.id).map(videoCard).join("")}
     ${z.years && z.years.length ? `<div class="years" aria-label="Años">${z.years.map(y => `<span class="yr">${ord(y)} año</span>`).join("")}</div>` : ""}
   </div>`;
 }
@@ -1267,17 +1285,18 @@ function hotspotOf(p, t, yaw0, pitch0) {
     targetYaw: by !== null ? yawNorm(by + 180) : "sameAzimuth", targetPitch:0,
     cssClass:"go-hs", createTooltipFunc:goHotspot, createTooltipArgs:{txt, key:p.id + ">" + t, from:p.id, to:t}};
 }
-const PANO_VIDS = {"v-hall-principal":[{v:"QSdl_RH2ySA", t:"Proyectos de Año", c:"1° año", yaw:3, pitch:-2}]};
+const PANO_VIDS = {};
+VIDEOS.filter(x => x.pano).forEach(x => (PANO_VIDS[x.pano] = PANO_VIDS[x.pano] || []).push(x));
 function vidHotspot(div, a) {
-  div.innerHTML = `<span class="vid-dot" aria-hidden="true">${PLAY}</span><span class="vid-lbl">▶ Ver video: ${esc(a.t)}<small>${esc(a.c || "")}</small></span>`;
+  div.innerHTML = `<span class="vid-card" aria-hidden="true">${thumbImg(a.yt)}<span class="vid-dot">${PLAY}</span></span><span class="vid-lbl">▶ Ver video: ${esc(a.t)}<small>${esc(a.c || "")}</small></span>`;
   div.setAttribute("role", "button"); div.setAttribute("aria-label", `Ver video: ${a.t} ${a.c || ""}`);
 }
 function openVid(a) {
   $("#pvidT").innerHTML = `${esc(a.t)}<small>${esc(a.c || "")}</small>`;
-  const id = encodeURIComponent(a.v);
+  const id = encodeURIComponent(a.yt);
   $("#pvidBody").innerHTML = CAN_EMBED
     ? `<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1" title="${esc(a.t)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>`
-    : videoCard({v:a.v, t:a.t, vt:[a.t, a.c].filter(Boolean).join(" · ")});
+    : videoCard(a);
   $("#pvid").hidden = false; $("#pvidX").focus();
 }
 function closeVid() { if ($("#pvid").hidden) return false; $("#pvid").hidden = true; $("#pvidBody").innerHTML = ""; return true; }
